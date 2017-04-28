@@ -1,0 +1,47 @@
+# Site settings
+title: Ark.Tech.AI blog
+email: Ark.Tech.AI@gmail.com
+description: > # this means to ignore newlines until "baseurl:"
+  Make Life Better! Make World Better!
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: # the base hostname & protocol for your site
+rss_url: /pages/feed.xml
+author: Ark.Tech.AI
+
+# Sidebar filter
+# Choose 'tag' or 'category' as filter in sidebar.
+filter: 'category'
+recent_num: 20
+
+# Social account
+twitter: ark-tech-ai
+github: ark-tech-ai
+
+# avatar and Favicon
+avatar: avatar.jpg
+favicon: 
+
+# disqus config
+disqus:
+  shortname: ArkTech
+
+# google analytics config
+ga:
+  id: UA-98293718-1
+  url: https://ark-tech-ai.github.io
+
+# Build settings
+permalink: /:year/:month/:day/:title.html
+markdown: kramdown
+highlighter: rouge
+mathjax: disabled
+sass:
+  style: compressed
+
+# Jekyll Plugin
+# https://help.github.com/articles/adding-jekyll-plugins-to-a-github-pages-site/
+gems:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-feed
+

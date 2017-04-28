@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-04-27T19:58:32-05:00</updated><id>http://localhost:4000/</id><title type="html">Ark.Tech.AI blog</title><subtitle>Make Life Better! Make World Better!
+</subtitle><author><name>Ark.Tech.AI</name></author><entry><title type="html">Install caffe in Google Cloud vm instance</title><link href="http://localhost:4000/2017/04/03/install-caffe-in-google-cloud-vm-instance.html" rel="alternate" type="text/html" title="Install caffe in Google Cloud vm instance" /><published>2017-04-03T00:00:00-05:00</published><updated>2017-04-03T00:00:00-05:00</updated><id>http://localhost:4000/2017/04/03/install-caffe-in-google-cloud-vm-instance</id><content type="html" xml:base="http://localhost:4000/2017/04/03/install-caffe-in-google-cloud-vm-instance.html">&lt;h3 id=&quot;general-dependencies&quot;&gt;General dependencies&lt;/h3&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libhdf5-serial-dev protobuf-compiler
+sudo apt-get install libgflags-dev libgoogle-glog-dev liblmdb-dev
+sudo apt-get install --no-install-recommends libboost-all-dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;other suggested packages&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-get install build-essential
+sudo apt-get install vim cmake git
+sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libboost-all-dev libhdf5-serial-dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;glog&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wget https://google-glog.googlecode.com/files/glog-0.3.3.tar.gz
+tar zxvf glog-0.3.3.tar.gz
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;glog-0.3.3
+./configure
+make &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; make install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;gflags&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wget https://github.com/schuhschuh/gflags/archive/master.zip
+unzip master.zip
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;gflags-master
+mkdir build &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;build
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;CXXFLAGS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;-fPIC&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; cmake .. &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; make &lt;span class=&quot;nv&quot;&gt;VERBOSE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+make &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; make install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;lmdb&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone git://gitorious.org/mdb/mdb.git
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;mdb/libraries/liblmdb
+make &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; make install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;cuda&quot;&gt;CUDA:&lt;/h3&gt;
+&lt;p&gt;Install by apt-get or the NVIDIA .run package. The NVIDIA package tends to follow more recent library and driver versions, but the installation is more manual. If installing from packages, install the library and latest driver separately; the driver bundled with the library is usually out-of-date. This can be skipped for CPU-only installation.&lt;/p&gt;
+
+&lt;p&gt;Go to &lt;a href=&quot;https://developer.nvidia.com/cuda-downloads&quot;&gt;CUDA download&lt;/a&gt;, select the right OS, architecture, distribution, version, installer type. Download the installer (2.6 KB).&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo dpkg -i cuda-repo-ubuntu1404_8.0.61-1_amd64.deb
+sudo apt-get update
+sudo apt-get install cuda
+sudo reboot
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;blas&quot;&gt;BLAS:&lt;/h3&gt;
+&lt;p&gt;Install ATLAS by&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-get install libatlas-base-dev 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;or install OpenBLAS or MKL for better CPU performance.&lt;/p&gt;
+
+&lt;h3 id=&quot;cudnn&quot;&gt;cuDNN&lt;/h3&gt;
+&lt;p&gt;First, download cuDNN&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tar -zxvf cudnn-6.5-linux-x64-v2.tgz
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;cudnn-6.5-linux-x64-v2
+sudo cp lib&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; /usr/local/cuda/lib64/
+sudo cp cudnn.h /usr/local/cuda/include/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Then update the soft link&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /usr/local/cuda/lib64/
+sudo rm -rf libcudnn.so libcudnn.so.6.5
+sudo ln -s libcudnn.so.6.5.48 libcudnn.so.6.5
+sudo ln -s libcudnn.so.6.5 libcudnn.so
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;setup-enviroment-parameters&quot;&gt;setup enviroment parameters&lt;/h3&gt;
+&lt;p&gt;open file /etc/profile and add following at the end of the file&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/local/cuda/bin:&lt;span class=&quot;nv&quot;&gt;$PATH&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;PATH
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;run following command to enable it&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; /etc/profile
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Meanwhile, add lib path, in folder /etc/ld.so.conf.d/, add new file cuda.conf with content:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/usr/local/cuda/lib64
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;and run by&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo ldconfig
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;install-intel-mkl-or-atlas&quot;&gt;install Intel MKL or Atlas&lt;/h3&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-get install libatlas-base-dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;install-opencv&quot;&gt;install OpenCV&lt;/h3&gt;
+&lt;p&gt;Recommend to install version 2.4.10.&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/bearpaw/Install-OpenCV.git
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;Install-OpenCV/Ubuntu/2.4
+sudo ./opencv2_4_10.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;compilation&quot;&gt;Compilation&lt;/h3&gt;
+&lt;p&gt;Caffe can be compiled with either Make or CMake. Make is officially supported while CMake is supported by the community.&lt;/p&gt;
+
+&lt;h4 id=&quot;compilation-with-make&quot;&gt;Compilation with Make&lt;/h4&gt;
+&lt;p&gt;Configure the build by copying and modifying the example Makefile.config for your setup. The defaults should work, but uncomment the relevant lines if using Anaconda Python.&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cp Makefile.config.example Makefile.config
+&lt;span class=&quot;c&quot;&gt;# Adjust Makefile.config (for example, if using Anaconda Python, or if cuDNN is desired)&lt;/span&gt;
+make all -j 4
+make &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; -j 4
+make runtest -j 4
+make pycaffe -j 4
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;references&quot;&gt;References&lt;/h3&gt;
+&lt;p&gt;01 &lt;a href=&quot;coldmooon.github.io/2015/08/03/caffe_install/&quot;&gt;Install Caffe in Ubuntu 14.04 from Scratch&lt;/a&gt;&lt;/p&gt;</content><author><name>Ark.Tech.AI</name></author><summary type="html">General dependencies sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libhdf5-serial-dev protobuf-compiler sudo apt-get install libgflags-dev libgoogle-glog-dev liblmdb-dev sudo apt-get install --no-install-recommends libboost-all-dev other suggested packages sudo apt-get install build-essential sudo apt-get install vim cmake git sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libboost-all-dev libhdf5-serial-dev glog wget https://google-glog.googlecode.com/files/glog-0.3.3.tar.gz tar zxvf glog-0.3.3.tar.gz cd glog-0.3.3 ./configure make &amp;amp;&amp;amp; make install gflags wget https://github.com/schuhschuh/gflags/archive/master.zip unzip master.zip cd gflags-master mkdir build &amp;amp;&amp;amp; cd build export CXXFLAGS=&quot;-fPIC&quot; &amp;amp;&amp;amp; cmake .. &amp;amp;&amp;amp; make VERBOSE=1 make &amp;amp;&amp;amp; make install lmdb git clone git://gitorious.org/mdb/mdb.git cd mdb/libraries/liblmdb make &amp;amp;&amp;amp; make install CUDA: Install by apt-get or the NVIDIA .run package. The NVIDIA package tends to follow more recent library and driver versions, but the installation is more manual. If installing from packages, install the library and latest driver separately; the driver bundled with the library is usually out-of-date. This can be skipped for CPU-only installation. Go to CUDA download, select the right OS, architecture, distribution, version, installer type. Download the installer (2.6 KB). sudo dpkg -i cuda-repo-ubuntu1404_8.0.61-1_amd64.deb sudo apt-get update sudo apt-get install cuda sudo reboot BLAS: Install ATLAS by sudo apt-get install libatlas-base-dev or install OpenBLAS or MKL for better CPU performance. cuDNN First, download cuDNN tar -zxvf cudnn-6.5-linux-x64-v2.tgz cd cudnn-6.5-linux-x64-v2 sudo cp lib* /usr/local/cuda/lib64/ sudo cp cudnn.h /usr/local/cuda/include/ Then update the soft link cd /usr/local/cuda/lib64/ sudo rm -rf libcudnn.so libcudnn.so.6.5 sudo ln -s libcudnn.so.6.5.48 libcudnn.so.6.5 sudo ln -s libcudnn.so.6.5 libcudnn.so setup enviroment parameters open file /etc/profile and add following at the end of the file PATH=/usr/local/cuda/bin:$PATH export PATH run following command to enable it source /etc/profile Meanwhile, add lib path, in folder /etc/ld.so.conf.d/, add new file cuda.conf with content: /usr/local/cuda/lib64 and run by sudo ldconfig install Intel MKL or Atlas sudo apt-get install libatlas-base-dev install OpenCV Recommend to install version 2.4.10. git clone https://github.com/bearpaw/Install-OpenCV.git cd Install-OpenCV/Ubuntu/2.4 sudo ./opencv2_4_10.sh Compilation Caffe can be compiled with either Make or CMake. Make is officially supported while CMake is supported by the community. Compilation with Make Configure the build by copying and modifying the example Makefile.config for your setup. The defaults should work, but uncomment the relevant lines if using Anaconda Python. cp Makefile.config.example Makefile.config # Adjust Makefile.config (for example, if using Anaconda Python, or if cuDNN is desired) make all -j 4 make test -j 4 make runtest -j 4 make pycaffe -j 4 References 01 Install Caffe in Ubuntu 14.04 from Scratch</summary></entry></feed>
