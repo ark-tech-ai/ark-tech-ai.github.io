@@ -18,7 +18,7 @@ twitter: ark-tech-ai
 github: ark-tech-ai
 
 # avatar and Favicon
-avatar: avatar.jpg
+avatar: ./assets/img/avatar.jpg
 favicon: 
 
 # disqus config
