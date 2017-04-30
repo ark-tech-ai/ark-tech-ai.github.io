@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Install caffe in Google Cloud vm instance
+category: deep_learning
 date: 2017-04-03
 ---
 
